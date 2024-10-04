@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMP 3123 Exercise 5 - Home</title>
+</head>
+<body>
+    <h1>Welcome to ExpressJs Tutorial</h1>
+    <h2>COMP-3123 Lab Exercise 05</h2>
+
+    <form id="loginForm" action="/login" method="POST">
+        <h5>
+            <label for="name">Username:</label>
+            <input type="text" name="username" id="username" required>
+        </h5>
+        <h5>
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required>
+        </h5>
+        <button type="submit">Submit</button>
+    </form>
+
+    <p id="result">The response should be here</p>
+
+    <script>
+        const form = document.getElementById('loginForm');
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+
+            const result = await response.json();
+            document.getElementById('result').innerText = result.message;
+        };
+    </script>
+</body>
+</html>
